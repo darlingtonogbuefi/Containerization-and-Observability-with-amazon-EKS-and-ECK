@@ -58,10 +58,10 @@ phases:
       - echo "Updating Kubernetes deployment with image tag $IMAGE_TAG..."
       - aws eks --region us-east-1 update-kubeconfig --name cribr-cluster
       - |
-        sed -i "s|image: .*|image: 493834426110.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:$IMAGE_TAG|g" cribr-cicd/deployment.yaml
+        sed -i "s|image: .*|image: 493834426110.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:$IMAGE_TAG|g" cicd-stack/deployment.yaml
       - |
-        sed -i "s|imagePullPolicy: .*|imagePullPolicy: Always|g" cribr-cicd/deployment.yaml
-      - kubectl apply -f cribr-cicd/deployment.yaml -n cribr-ns
+        sed -i "s|imagePullPolicy: .*|imagePullPolicy: Always|g" cicd-stack/deployment.yaml
+      - kubectl apply -f cicd-stack/deployment.yaml -n cribr-ns
       - kubectl rollout status -n cribr-ns deployment/cribr-app
       - echo "Deployment complete."
 
