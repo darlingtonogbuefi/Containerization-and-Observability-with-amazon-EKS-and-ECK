@@ -45,6 +45,7 @@ yarn-error.log*
 .env
 #.env.production
 .env.production.master
+.env.production.*
 # vercel
 .vercel
 
