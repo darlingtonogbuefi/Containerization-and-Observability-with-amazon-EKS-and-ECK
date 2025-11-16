@@ -1,0 +1,86 @@
+//  cribr-cicd/terraform.tfvars
+
+#############################################
+# Sensitive Variables
+# ⚠️ DO NOT COMMIT THESE TO GIT
+# Use environment variables or AWS Secrets Manager
+#############################################
+
+#############################################
+# Terraform Variables for CI/CD Pipeline
+#############################################
+
+# AWS account ID where resources will be created
+aws_account_id = "xxxxxxxxxxxxxxxxxxxxxxx"
+
+# URL of the GitHub repository containing the source code
+source_repo_url = "https://github.com/xxxxxxxxxxxxxxxxxxx/cxxxxxxxxxxxxxxxxxxxxx"
+
+# Branch to build
+branch_name = "main"
+
+# S3 bucket for storing CodePipeline build artifacts
+artifacts_bucket = "cribr-codepipeline-artifacts"
+
+# Docker image for CodeBuild environment
+docker_image = "aws/codebuild/standard:7.0"
+
+# Compute type for CodeBuild
+compute_type = "BUILD_GENERAL1_SMALL"
+
+# AWS region for resource deployment
+aws_region = "us-east-1"
+
+#############################################
+# Sensitive Variables
+# ⚠️ DO NOT COMMIT THESE TO GIT
+# Use environment variables or AWS Secrets Manager
+#############################################
+
+# GitHub OAuth token used by CodePipeline to access the repository
+github_oauth_token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# SonarQube token for authentication during code analysis
+sonar_token = "xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# SonarQube project key
+sonar_project_key = "xxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Supabase
+supabase_project_id           = "xxxxxxxxxxxxxxxxxxxxxxxxxx"
+supabase_url                  = "xxxxxxxxxxxxxxxxxxxxxxxx"
+supabase_anon_key             = "xxxxxxxxxxxxxxxxxxxxxxxxx"
+supabase_service_key          = "xxxxxxxxxxxxxxxxxxxxxxxx"
+next_public_supabase_url      = "xxxxxxxxxxxxxxxxxxxx"
+next_public_supabase_anon_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+next_public_site_url          = "https://app.cribr.co.uk"
+
+# Stripe
+stripe_secret_key             = "sk_testxxxxxxxxxxxxxxxxxxx"
+next_public_stripe_publishable_key = "pk_test_xxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+stripe_webhook_secret         = "whsec_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# 3rd party APIs
+assemblyai_api_key            = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+transcript_io_api_key         = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+dumplingai_api_key            = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Auth URLs
+next_public_auth_redirect_url = "https://app.cribr.co.uk/dashboard"
+next_public_auth_sign_in_url  = "https://app.cribr.co.uk/(auth)/sign-in"
+next_public_auth_sign_up_url  = "https://app.cribr.co.ukk/(auth)/sign-up"
+
+# OAuth / Google / YouTube
+youtube_api_key                 = "cribr-youtube-api-key"
+next_public_google_client_id    = "cribr-google-client-id"
+
+# DockerHub Credentials
+dockerhub_username = "ogbuefidarlington@yahoo.com"
+dockerhub_password = "xxxxxxxxx"
+
+# terraform-user IAM credentials
+
+terraform_user_access_key = "xxxxxxxxxxxxxxxx"
+terraform_user_secret_key = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+

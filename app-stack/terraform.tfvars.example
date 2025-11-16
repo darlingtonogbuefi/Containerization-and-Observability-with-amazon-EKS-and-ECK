@@ -1,0 +1,21 @@
+# cribr-core-infra\cribr-app-stack\terraform.tfvars
+
+#############################################
+# Sensitive Variables
+# ⚠️ DO NOT COMMIT THESE TO GIT
+# Use environment variables or AWS Secrets Manager
+#############################################
+
+region              = "us-east-1"
+name_prefix         = "cribr"
+cluster_name        = "cribr-cluster"
+cluster_endpoint    = "xxxxxxxxxxxx"
+cluster_ca          = "LS0tLxxxxxxxLS0tLS0K"
+vpc_id              = "vpc-xxxxxxxx"
+
+# OIDC info from Stack 1 outputs
+oidc_provider_arn   = "arn:aws:iam::xxxxxxxxxxxxx:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/gggggggggg"
+oidc_provider_url   = "oidc.eks.us-east-1.amazonaws.com/id/gggggggg"
+
+# CI/CD role from Stack 1 outputs
+cicd_role_arn       = "arn:aws:iam::xxxxxxxxxx:role/cribr-cicd-role"

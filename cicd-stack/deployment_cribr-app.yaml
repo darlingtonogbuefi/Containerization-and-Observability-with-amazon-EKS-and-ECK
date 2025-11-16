@@ -1,0 +1,29 @@
+# cribr-cicd\deployment.yaml
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: cribr-ns
+  name: cribr-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cribr-app
+  template:
+    metadata:
+      labels:
+        app: cribr-app
+    spec:
+      # Disable automounting of service account token (safer) OR you could bind to RBAC if needed
+      #automountServiceAccountToken: false
+      containers:
+        - name: cribr-container
+          image: 493834426110.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:v1.1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: cribr-secrets

@@ -1,0 +1,27 @@
+# cribr-deployment.yaml
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: cribr-ns
+  name: cribr-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: cribr-app
+  template:
+    metadata:
+      labels:
+        app: cribr-app
+    spec:
+      containers:
+        - name: cribr-container
+          image: 493834426110.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - secretRef:
+                name: cribr-secrets
