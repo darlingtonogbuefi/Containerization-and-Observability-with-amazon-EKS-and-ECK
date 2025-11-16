@@ -65,7 +65,7 @@ node_modules/
 secrets.yaml
 structure.txt
 terraform_user_creds.txt
-elastic-selfmanaged/values-fleet-server.yaml
+elastic-selfManagedFleet/values-fleet-server.yaml
 
 # Terraform state files
 .terraform/
