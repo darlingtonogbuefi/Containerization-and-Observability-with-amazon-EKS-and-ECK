@@ -1,4 +1,4 @@
-#  cribr-core-infra\cribr-app-stack\variables.tf
+#  app-stack\variables.tf
 
 #########################################
 # Input Variables for App Stack

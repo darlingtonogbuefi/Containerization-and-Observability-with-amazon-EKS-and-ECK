@@ -1,3 +1,5 @@
+# core-stack\outputs.tf
+
 output "vpc_id" {
   description = "The ID of the VPC created by this stack, used by downstream stacks and resources."
   value       = module.cribr_vpc.vpc_id

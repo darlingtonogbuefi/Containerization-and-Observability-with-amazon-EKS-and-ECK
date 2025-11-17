@@ -1,4 +1,4 @@
-// cribr-core-infra\cribr-core-stack\iam.tf
+// core-stack\iam.tf
 
 #########################################
 # IAM + EKS Access Setup for cribr-cluster

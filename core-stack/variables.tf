@@ -1,4 +1,4 @@
-#  cribr-core-infra\cribr-core-stack\variables.tf
+#  core-stack\variables.tf
 
 #########################################
 # Input Variables for Core Infrastructure

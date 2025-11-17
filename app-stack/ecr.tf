@@ -1,4 +1,4 @@
-//   cribr-core-infra\cribr-app-stack\ecr.tf
+// app-stack\ecr.tf
 
 #############################################
 # ECR Repository and Policy

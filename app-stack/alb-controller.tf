@@ -1,4 +1,4 @@
-//   cribr-core-infra\cribr-app-stack\alb-controller.tf
+// app-stack\alb-controller.tf
 
 #########################################
 # ALB Controller IAM + Helm
