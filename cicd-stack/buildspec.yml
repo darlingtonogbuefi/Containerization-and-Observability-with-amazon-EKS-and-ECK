@@ -39,9 +39,7 @@ phases:
       - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
       - echo "AWS_ACCOUNT_ID=${AWS_ACCOUNT_ID}"
       - echo "Logging in to Amazon ECR..."
-      - ECR_URL="${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com"
-      - PASSWORD=$(aws ecr get-login-password --region us-east-1)
-      - echo "$PASSWORD" | docker login --username AWS --password-stdin $ECR_URL
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${AWS_ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
       - echo "Logging in to DockerHub..."
       - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - echo "Terraform credentials are available via AWS CLI"
