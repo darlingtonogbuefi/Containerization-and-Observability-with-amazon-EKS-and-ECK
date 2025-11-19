@@ -1,7 +1,6 @@
 ✅ README.md
 
 # Containerization and Observability with AWS EKS and Elastic Cloud
-# Link to article on medium: https://medium.com/@ogbuefidarlington/deploying-an-application-to-aws-eks-and-implementing-end-to-end-observability-with-elasticsearch-4dbb6b81f04d?postPublishedType=repub
 
 This project demonstrates how to containerize an application, deploy it to **Amazon EKS**, and implement **end-to-end observability** using **Elasticsearch, Kibana, and a self-managed Fleet Server**. Infrastructure and deployment workflows are orchestrated using **Terraform, AWS ECR, AWS ALB, AWS Secret Manager, and CI/CD pipelines**.
 
