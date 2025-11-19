@@ -196,3 +196,13 @@ resource "aws_secretsmanager_secret_version" "terraform_user_secret_key" {
   secret_id     = aws_secretsmanager_secret.terraform_user_secret_key.id
   secret_string = var.terraform_user_secret_key
 }
+
+resource "aws_secretsmanager_secret" "aws_account_id" {
+  name        = "${var.project_name}-aws-account-id"
+  description = "AWS account ID for ECR"
+}
+
+resource "aws_secretsmanager_secret_version" "aws_account_id" {
+  secret_id     = aws_secretsmanager_secret.aws_account_id.id
+  secret_string = var.aws_account_id   # e.g., "493834426110"
+}
