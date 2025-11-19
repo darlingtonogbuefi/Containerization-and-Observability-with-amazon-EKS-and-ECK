@@ -5,12 +5,6 @@
 version: 0.2
 
 env:
-
-  #exported-variables:
-    #- IMAGE_TAG
-  #variables:
-    #IMAGE_TAG: v1.1
-
   secrets-manager:
     # DockerHub credentials
     DOCKERHUB_USERNAME: cribr-dockerhub-username
@@ -41,8 +35,11 @@ phases:
       - echo "Setting IMAGE_TAG using current timestamp..."
       - export IMAGE_TAG=$(date +'%Y%m%d-%H%M%S')
       - echo "Using IMAGE_TAG=$IMAGE_TAG"
+      - echo "Fetching AWS Account ID..."
+      - export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output text)
+      - echo "AWS_ACCOUNT_ID=$AWS_ACCOUNT_ID"
       - echo "Logging in to Amazon ECR..."
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 493834426110.dkr.ecr.us-east-1.amazonaws.com
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com
       - echo "Logging in to DockerHub..."
       - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
       - echo "Terraform credentials are available via AWS CLI"
@@ -53,16 +50,16 @@ phases:
       - echo "Building Docker image with tag $IMAGE_TAG..."
       - docker build --build-arg SUPABASE_SERVICE_KEY="$SUPABASE_SERVICE_KEY" -t cribr-app:$IMAGE_TAG .
       - echo "Tagging image for ECR..."
-      - docker tag cribr-app:$IMAGE_TAG 493834426110.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:$IMAGE_TAG
+      - docker tag cribr-app:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:$IMAGE_TAG
       - echo "Pushing Docker image to ECR..."
-      - docker push 493834426110.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:$IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:$IMAGE_TAG
 
   post_build:
     commands:
       - echo "Updating Kubernetes deployment with image tag $IMAGE_TAG..."
       - aws eks --region us-east-1 update-kubeconfig --name cribr-cluster
       - |
-        sed -i "s|image: .*|image: 493834426110.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:$IMAGE_TAG|g" cicd-stack/deployment.yaml
+        sed -i "s|image: .*|image: $AWS_ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/cribr-app-repo:$IMAGE_TAG|g" cicd-stack/deployment.yaml
       - |
         sed -i "s|imagePullPolicy: .*|imagePullPolicy: Always|g" cicd-stack/deployment.yaml
       - kubectl apply -f cicd-stack/deployment.yaml -n cribr-ns
