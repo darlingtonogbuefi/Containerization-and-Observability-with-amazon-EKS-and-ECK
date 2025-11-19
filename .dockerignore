@@ -25,6 +25,8 @@ coverage/
 
 # Ignore environment and secret files
 .env*.local
+.env
+.env.*
 !.env.production
 secrets.yaml
 
