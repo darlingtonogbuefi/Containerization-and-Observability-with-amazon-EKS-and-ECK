@@ -1,5 +1,7 @@
 // core-stack\main.tf
 
+// core-stack\main.tf
+
 #############################################
 # Terraform Configuration
 #############################################
@@ -85,12 +87,17 @@ resource "aws_security_group" "vpc_endpoint_sg" {
 #############################################
 # VPC Endpoints
 #############################################
-# S3 Gateway Endpoint
+# S3 Gateway Endpoint (updated to include private route tables)
 resource "aws_vpc_endpoint" "s3" {
   vpc_id            = module.cribr_vpc.vpc_id
   service_name      = "com.amazonaws.${var.region}.s3"
   vpc_endpoint_type = "Gateway"
-  route_table_ids   = module.cribr_vpc.public_route_table_ids
+
+  # Attach to all route tables (public + private)
+  route_table_ids = concat(
+    module.cribr_vpc.public_route_table_ids,
+    module.cribr_vpc.private_route_table_ids
+  )
 
   tags = {
     Name = "${var.name_prefix}-s3-endpoint"
@@ -122,6 +129,22 @@ resource "aws_vpc_endpoint" "ecr_dkr" {
 
   tags = {
     Name = "${var.name_prefix}-ecr-dkr-endpoint"
+  }
+}
+
+# ----------------------------------------------------------
+# ADDED: Secrets Manager VPC Endpoint (Interface)
+# ----------------------------------------------------------
+resource "aws_vpc_endpoint" "secretsmanager" {
+  vpc_id             = module.cribr_vpc.vpc_id
+  service_name       = "com.amazonaws.${var.region}.secretsmanager"
+  vpc_endpoint_type  = "Interface"
+  subnet_ids         = module.cribr_vpc.private_subnets
+  security_group_ids = [aws_security_group.vpc_endpoint_sg.id]
+  private_dns_enabled = true
+
+  tags = {
+    Name = "${var.name_prefix}-secretsmanager-endpoint"
   }
 }
 
